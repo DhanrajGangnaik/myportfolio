@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -16,21 +15,18 @@ export default function Page() {
     <main className="relative flex min-h-dvh flex-col gap-14">
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="flex flex-col justify-between gap-4 gap-y-6 md:flex-row">
-            <div className="order-2 flex flex-col gap-3 md:order-1">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                yOffset={8}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
-                text={DATA.name}
-              />
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY * 1.2}
-                className="text-base text-muted-foreground md:text-lg lg:text-xl"
-                text={DATA.description}
-              />
-            </div>
-            
+          <div className="flex flex-col gap-3">
+            <BlurFadeText
+              delay={BLUR_FADE_DELAY}
+              yOffset={8}
+              className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
+              text={DATA.name}
+            />
+            <BlurFadeText
+              delay={BLUR_FADE_DELAY * 1.2}
+              className="text-base text-muted-foreground md:text-lg lg:text-xl"
+              text={DATA.description}
+            />
           </div>
         </div>
       </section>
@@ -117,21 +113,25 @@ export default function Page() {
           </BlurFade>
 
           <div className="flex flex-wrap gap-2">
-            {DATA.skills.map((skill, index) => (
-              <BlurFade
-                key={skill.name}
-                delay={BLUR_FADE_DELAY * 7 + index * 0.05}
-              >
-                <div className="flex h-8 w-fit items-center gap-2 rounded-xl border border-border bg-background px-4 ring-2 ring-border/20">
-                  {skill.icon ? (
-                    <skill.icon className="size-4 overflow-hidden rounded object-contain" />
-                  ) : null}
-                  <span className="text-sm font-medium text-foreground">
-                    {skill.name}
-                  </span>
-                </div>
-              </BlurFade>
-            ))}
+            {DATA.skills.map((skill, index) => {
+              const SkillIcon = "icon" in skill ? skill.icon : undefined;
+
+              return (
+                <BlurFade
+                  key={skill.name}
+                  delay={BLUR_FADE_DELAY * 7 + index * 0.05}
+                >
+                  <div className="flex h-8 w-fit items-center gap-2 rounded-xl border border-border bg-background px-4 ring-2 ring-border/20">
+                    {SkillIcon ? (
+                      <SkillIcon className="size-4 overflow-hidden rounded object-contain" />
+                    ) : null}
+                    <span className="text-sm font-medium text-foreground">
+                      {skill.name}
+                    </span>
+                  </div>
+                </BlurFade>
+              );
+            })}
           </div>
         </div>
       </section>
