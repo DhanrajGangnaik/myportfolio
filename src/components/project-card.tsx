@@ -13,19 +13,21 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
 
   if (!src || imageError) {
     return (
-      <div className="flex h-48 w-full items-center justify-center bg-muted text-sm text-muted-foreground">
-        Project Preview
+      <div className="theme-image-frame flex h-48 w-full items-center justify-center bg-muted text-xs text-muted-foreground">
+        Preview
       </div>
     );
   }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-      onError={() => setImageError(true)}
-    />
+    <div className="theme-image-frame overflow-hidden rounded-t-2xl">
+      <img
+        src={src}
+        alt={alt}
+        className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        onError={() => setImageError(true)}
+      />
+    </div>
   );
 }
 
@@ -59,37 +61,35 @@ export function ProjectCard({
   const primaryHref = href && href !== "#" ? href : undefined;
 
   const media = video ? (
-    <video
-      src={video}
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-    />
+    <div className="theme-image-frame overflow-hidden rounded-t-2xl">
+      <video
+        src={video}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+      />
+    </div>
   ) : image ? (
     <ProjectImage src={image} alt={title} />
   ) : (
-    <div className="flex h-48 w-full items-center justify-center bg-muted text-sm text-muted-foreground">
-      Project Preview
+    <div className="theme-image-frame flex h-48 w-full items-center justify-center bg-muted text-xs text-muted-foreground">
+      Preview
     </div>
   );
 
   return (
     <article
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5",
+        "theme-glow-card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_70px_rgba(0,0,0,0.6)]",
         className
       )}
     >
-      <div className="relative shrink-0 overflow-hidden">
+      {/* Media */}
+      <div className="relative shrink-0">
         {primaryHref ? (
-          <Link
-            href={primaryHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
+          <Link href={primaryHref} target="_blank" className="block">
             {media}
           </Link>
         ) : (
@@ -97,18 +97,16 @@ export function ProjectCard({
         )}
 
         {links && links.length > 0 && (
-          <div className="absolute right-2 top-2 flex flex-wrap gap-2">
+          <div className="absolute right-3 top-3 flex gap-2">
             {links.map((projectLink, idx) => (
               <Link
                 href={projectLink.href}
                 key={`${projectLink.type}-${idx}`}
                 target="_blank"
-                rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Badge className="flex items-center gap-1.5 bg-black text-xs text-white hover:bg-black/90">
+                <Badge className="rounded-full border border-white/10 bg-black/60 px-2 py-0.5 text-[10px] text-white backdrop-blur hover:bg-black/80">
                   {projectLink.icon}
-                  {projectLink.type}
                 </Badge>
               </Link>
             ))}
@@ -116,40 +114,56 @@ export function ProjectCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex flex-col gap-1">
-            <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-            <time className="text-xs text-muted-foreground">{dates}</time>
+      {/* Content */}
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        {/* Title Row */}
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="theme-title text-base font-semibold leading-tight">
+              {title}
+            </h3>
+            <p className="theme-subtext text-[11px] mt-1">{dates}</p>
           </div>
 
-          {primaryHref ? (
-            <Link
-              href={primaryHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              aria-label={`Open ${title}`}
-            >
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          {primaryHref && (
+            <Link href={primaryHref} target="_blank">
+              <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
-          ) : null}
+          )}
         </div>
 
-        <div className="prose max-w-full flex-1 text-pretty font-sans text-xs leading-relaxed text-muted-foreground dark:prose-invert">
-          <Markdown>{description}</Markdown>
+        {/* Description (fixed bullets) */}
+        <div className="flex-1 text-[13px] leading-relaxed text-muted-foreground space-y-2">
+          <Markdown
+            components={{
+              ul: ({ children }) => (
+                <ul className="space-y-1.5">{children}</ul>
+              ),
+              li: ({ children }) => (
+                <li className="flex items-start gap-2">
+                  <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-orange-400" />
+                  <span>{children}</span>
+                </li>
+              ),
+              p: ({ children }) => (
+                <p className="text-muted-foreground">{children}</p>
+              ),
+            }}
+          >
+            {description}
+          </Markdown>
         </div>
 
+        {/* Tags */}
         {tags && tags.length > 0 && (
-          <div className="mt-auto flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5 pt-2">
             {tags.map((tag) => (
-              <Badge
+              <span
                 key={tag}
-                variant="outline"
-                className="h-6 w-fit border-border px-2 text-[11px] font-medium"
+                className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] text-white/80"
               >
                 {tag}
-              </Badge>
+              </span>
             ))}
           </div>
         )}
