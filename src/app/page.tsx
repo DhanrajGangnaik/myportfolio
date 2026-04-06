@@ -19,7 +19,6 @@ export default function Page() {
   return (
     <main className="relative flex min-h-dvh flex-col gap-16">
       <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 lg:px-10">
-
         {/* HERO */}
         <section id="hero">
           <div className="w-full space-y-8">
@@ -82,17 +81,17 @@ export default function Page() {
                         <img
                           src={education.logoUrl}
                           alt={education.school}
-                          className="size-8 md:size-10 rounded-full border p-1 object-contain shadow ring-2 ring-border"
+                          className="size-8 rounded-full border p-1 object-contain shadow ring-2 ring-border md:size-10"
                         />
                       ) : (
-                        <div className="size-8 md:size-10 rounded-full border bg-muted shadow ring-2 ring-border" />
+                        <div className="size-8 rounded-full border bg-muted shadow ring-2 ring-border md:size-10" />
                       )}
 
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2 font-semibold">
                           {education.school}
                           {education.href !== "#" && (
-                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition" />
+                            <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" />
                           )}
                         </div>
                         <div className="text-sm text-muted-foreground">
@@ -120,18 +119,19 @@ export default function Page() {
 
             <div className="flex flex-wrap gap-2">
               {DATA.skills.map((skill, index) => {
-                const SkillIcon = "icon" in skill ? skill.icon : undefined;
+                const SkillIcon =
+                  "icon" in skill && skill.icon
+                    ? (skill.icon as React.ComponentType<{ className?: string }>)
+                    : undefined;
 
                 return (
                   <BlurFade
                     key={skill.name}
                     delay={BLUR_FADE_DELAY * 7 + index * 0.05}
                   >
-                    <div className="flex items-center gap-2 rounded-xl border px-4 h-8 bg-background ring-2 ring-border/20">
-                      {SkillIcon && <SkillIcon className="size-4" />}
-                      <span className="text-sm font-medium">
-                        {skill.name}
-                      </span>
+                    <div className="flex h-8 items-center gap-2 rounded-xl border bg-background px-4 ring-2 ring-border/20">
+                      {SkillIcon ? <SkillIcon className="size-4" /> : null}
+                      <span className="text-sm font-medium">{skill.name}</span>
                     </div>
                   </BlurFade>
                 );
@@ -147,7 +147,6 @@ export default function Page() {
           </BlurFade>
         </section>
 
-
         {/* CURRENT WORK */}
         <section id="currently-working-on" className="mt-14">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
@@ -161,7 +160,6 @@ export default function Page() {
             <ContactSection />
           </BlurFade>
         </section>
-
       </div>
     </main>
   );
