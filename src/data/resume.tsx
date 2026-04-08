@@ -5,17 +5,21 @@ export const DATA = {
   name: "Dhanraj Gangnaik",
   initials: "DG",
   url: "https://dhanrajgangnaik.dev",
+
   location: "Pune, Maharashtra, India",
   locationLink: "https://www.google.com/maps/place/Pune",
 
+  // 🔴 SEO CRITICAL (name + role + keywords)
   description:
-    "Designing and operating production-style Kubernetes, CI/CD, and observability systems across self-hosted and hybrid cloud environments.",
+    "Dhanraj Gangnaik is a Cloud & DevOps Engineer specializing in Kubernetes, self-hosted infrastructure, CI/CD pipelines, and hybrid cloud systems.",
 
+  // 🔴 RECRUITER + SEO OPTIMIZED
   summary:
-    "I design and operate self-hosted cloud infrastructure, Kubernetes platforms, and automated delivery systems. My work focuses on building production-style environments with CI/CD pipelines, GitOps workflows, observability stacks, and secure system architectures.\n\nI am particularly interested in reliability, scalability, and reproducibility in infrastructure design, translating complex workflows into resilient systems across self-hosted and hybrid cloud environments.",
+    "Dhanraj Gangnaik is a Cloud and DevOps Engineer focused on designing and operating production-style infrastructure across self-hosted and hybrid cloud environments.\n\nHe builds Kubernetes platforms, CI/CD pipelines, GitOps workflows, and observability systems using tools such as Prometheus, Grafana, and Proxmox.\n\nHis work emphasizes reliability, scalability, and reproducibility, translating complex distributed systems into resilient, production-ready architectures.",
 
   avatarUrl: "",
 
+  // 🔴 SKILLS EXPANDED (better keyword coverage)
   skills: [
     { name: "Kubernetes" },
     { name: "Docker" },
@@ -33,6 +37,9 @@ export const DATA = {
     { name: "Ansible" },
     { name: "AWS" },
     { name: "Gitea" },
+    { name: "Talos Linux" },
+    { name: "Distributed Systems" },
+    { name: "Observability" },
   ],
 
   navbar: [
@@ -89,7 +96,8 @@ export const DATA = {
       dates: "2025",
       active: true,
       description:
-        "Designed and operated a distributed self-hosted data and observability platform across multiple Proxmox VMs:\n\n• PostgreSQL HA with replica and WAL archiving\n• Prometheus + Grafana for metrics, alerting, and dashboards\n• ClickHouse pipeline for centralized log ingestion and analytics\n• TimescaleDB for time-series workloads and query optimization\n• Production-style deployment across multiple services and VMs\n\nImplemented end-to-end telemetry pipelines for metrics, logs, and time-series analytics, enabling SQL-driven detection workflows and platform-wide monitoring.",
+        "Designed and operated a distributed self-hosted data and observability platform across multiple Proxmox VMs.\n\n• PostgreSQL HA with replication and WAL archiving\n• Prometheus and Grafana for metrics, alerting, and dashboards\n• ClickHouse-based centralized log analytics pipeline\n• TimescaleDB for time-series workloads\n• Multi-service deployment across distributed infrastructure\n\nBuilt end-to-end telemetry pipelines for metrics, logs, and time-series analytics, enabling SQL-driven detection and full-stack observability.",
+
       technologies: [
         "Prometheus",
         "Grafana",
@@ -98,6 +106,7 @@ export const DATA = {
         "Docker",
         "Linux",
       ],
+
       links: [
         {
           type: "GitHub",
@@ -105,16 +114,19 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
+
       image: "/projects/data-platform.png",
       video: "",
     },
+
     {
       title: "Kubernetes HA Cluster",
       href: "https://github.com/DhanrajGangnaik/Kubernetes-HA-Cluster",
       dates: "2025",
       active: true,
       description:
-        "Designed and deployed a 9-node high-availability Kubernetes cluster (3 control planes, 6 workers) using Talos Linux:\n\n• MetalLB for LoadBalancer networking\n• Ingress-NGINX for external traffic routing\n• Rancher for centralized cluster lifecycle management\n• Multi-node orchestration for resilient workload placement\n• HA control plane for production-style self-hosted operations\n\nEngineered for control-plane resilience, workload orchestration, and reliable service exposure across a distributed Kubernetes environment.",
+        "Designed and deployed a 9-node high-availability Kubernetes cluster using Talos Linux.\n\n• 3 control planes + 6 worker nodes\n• MetalLB for LoadBalancer networking\n• Ingress-NGINX for traffic routing\n• Rancher for cluster lifecycle management\n• Distributed workload orchestration and scheduling\n\nEngineered for control-plane resilience, high availability, and production-style Kubernetes operations in a self-hosted environment.",
+
       technologies: [
         "Kubernetes",
         "Talos",
@@ -122,6 +134,7 @@ export const DATA = {
         "Ingress-NGINX",
         "Rancher",
       ],
+
       links: [
         {
           type: "GitHub",
@@ -129,16 +142,19 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
+
       image: "/projects/k8s-ha.png",
       video: "",
     },
+
     {
       title: "Hybrid Cloud Kubernetes Failover System",
       href: "https://github.com/DhanrajGangnaik/Hybrid-Cloud-Kubernetes-Failover-System",
       dates: "2026",
       active: true,
       description:
-        "Engineered a hybrid Kubernetes architecture combining a local Talos cluster as the primary environment with AWS EKS as the failover layer:\n\n• Local cluster serving primary workloads\n• AWS EKS configured as standby failover environment\n• Ingress-based routing for controlled traffic switching\n• Cross-environment workload validation and synchronization\n• Foundation for automated failover across self-hosted and cloud infrastructure\n\nDesigned to support workload continuity, failover testing, and hybrid deployment patterns across multiple environments.",
+        "Engineered a hybrid cloud Kubernetes architecture combining a self-hosted Talos cluster with AWS EKS for failover.\n\n• Local cluster as primary workload environment\n• AWS EKS as standby failover layer\n• Ingress-based traffic switching between environments\n• Cross-cluster workload validation and synchronization\n• Foundation for automated failover and hybrid deployment strategies\n\nDesigned for high availability, workload continuity, and hybrid cloud resilience.",
+
       technologies: [
         "Kubernetes",
         "Talos",
@@ -147,6 +163,7 @@ export const DATA = {
         "MetalLB",
         "Ingress-NGINX",
       ],
+
       links: [
         {
           type: "GitHub",
@@ -154,6 +171,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
+
       image: "/projects/hybrid-k8s.png",
       video: "",
     },
@@ -163,18 +181,21 @@ export const DATA = {
     {
       title: "Self-Hosted CI/CD Pipeline",
       dates: "Ongoing",
-      location: "Gitea • Actions/Woodpecker • Docker Registry",
+      location: "Gitea • Woodpecker • Docker Registry",
       description:
-        "Designing a self-hosted CI/CD platform for end-to-end delivery workflows:\n\n• Source control with Gitea\n• Build orchestration via Woodpecker runners\n• Container image build and registry pipelines\n• Reverse proxy and TLS integration\n• Automated build-and-push workflows across homelab services\n\nCurrent focus is on runner stability, registry authentication, certificate trust, and streamlining automated delivery pipelines.",
+        "Building a self-hosted CI/CD platform for automated software delivery.\n\n• Source control with Gitea\n• CI orchestration using Woodpecker runners\n• Container build and private registry pipelines\n• TLS, reverse proxy, and authentication integration\n• Automated build and deployment workflows\n\nFocused on pipeline reliability, runner stability, and secure artifact distribution.",
+
       image: "/projects/ci-cd.png",
       links: [],
     },
+
     {
       title: "Self-Hosted MLOps Platform",
       dates: "Ongoing",
-      location: "OpenClaw • LiteLLM • Proxmox GPU VM",
+      location: "OpenClaw • LiteLLM • GPU VM",
       description:
-        "Building a self-hosted MLOps and AI runtime platform for model orchestration and inference:\n\n• GPU passthrough on Proxmox with NVIDIA runtime\n• LiteLLM-based model gateway deployment\n• Multi-VM architecture for control plane and inference layers\n• Containerized AI workloads with internal service networking\n• Foundation for orchestration, inference services, and operational tooling\n\nProgressing toward a full-stack AI platform that combines model runtime, orchestration, and self-hosted operational infrastructure.",
+        "Designing a self-hosted MLOps and AI runtime platform.\n\n• GPU passthrough on Proxmox\n• LiteLLM-based model gateway\n• Multi-VM architecture for control and inference layers\n• Containerized AI workloads and internal networking\n• Foundation for orchestration and model serving\n\nBuilding toward a full-stack AI platform integrating infrastructure, orchestration, and inference services.",
+
       image: "/projects/mlops.png",
       links: [],
     },

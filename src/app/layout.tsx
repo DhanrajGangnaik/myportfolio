@@ -1,12 +1,12 @@
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -16,60 +16,91 @@ const geist = Geist({
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-mono",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
+const siteUrl = DATA.url;
+const siteName = DATA.name;
+const siteTitle = `${DATA.name} | Cloud & DevOps Engineer`;
+const siteDescription =
+  "Dhanraj Gangnaik is a Cloud, DevOps, and Platform Engineer building self-hosted infrastructure, Kubernetes platforms, CI/CD systems, observability stacks, and hybrid cloud environments.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  metadataBase: new URL(siteUrl),
+
   title: {
-    default: `${DATA.name} | Cloud & DevOps Engineer`,
-    template: `%s | ${DATA.name}`,
+    default: siteTitle,
+    template: `%s | ${siteName}`,
   },
-  description: DATA.description,
-  applicationName: DATA.name,
+
+  description: siteDescription,
+  applicationName: siteName,
+
   keywords: [
     "Dhanraj Gangnaik",
+    "Dhanraj",
+    "Dhanraj Gangnaik portfolio",
     "Cloud Engineer",
     "DevOps Engineer",
-    "SRE",
     "Platform Engineer",
+    "Site Reliability Engineer",
+    "SRE",
     "Kubernetes",
     "Docker",
     "CI/CD",
+    "GitOps",
     "Prometheus",
     "Grafana",
     "Proxmox",
-    "GitOps",
+    "Talos Linux",
     "Homelab",
+    "Self-hosted infrastructure",
+    "Hybrid cloud",
+    "Distributed systems",
+    "Observability",
+    "Infrastructure automation",
   ],
-  authors: [{ name: DATA.name, url: DATA.url }],
-  creator: DATA.name,
-  publisher: DATA.name,
+
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+
+  alternates: {
+    canonical: siteUrl,
+  },
+
   openGraph: {
-    title: `${DATA.name} | Cloud & DevOps Engineer`,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: DATA.name,
+    title: siteTitle,
+    description: siteDescription,
+    url: siteUrl,
+    siteName: siteName,
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: `${DATA.name} | Cloud & DevOps Engineer`,
-    description: DATA.description,
+    title: siteTitle,
+    description: siteDescription,
+    creator: "DhanrajGangnaik",
   },
+
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
+
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -77,6 +108,43 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Dhanraj Gangnaik",
+    url: siteUrl,
+    image: `${siteUrl}/avatar.png`,
+    jobTitle: "Cloud & DevOps Engineer",
+    description: siteDescription,
+    sameAs: [
+      "https://github.com/DhanrajGangnaik",
+      ...(DATA.contact?.social
+        ? Object.values(DATA.contact.social)
+            .map((social) => social?.url)
+            .filter(Boolean)
+        : []),
+    ],
+    knowsAbout: [
+      "Cloud Computing",
+      "DevOps",
+      "Kubernetes",
+      "CI/CD",
+      "GitOps",
+      "Observability",
+      "Distributed Systems",
+      "Self-Hosted Infrastructure",
+      "Platform Engineering",
+    ],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: siteUrl,
+    description: siteDescription,
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -86,6 +154,15 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
             <div className="absolute inset-x-0 top-0 z-0 h-[100px] overflow-hidden">
